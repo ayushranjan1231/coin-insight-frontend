@@ -111,16 +111,6 @@ const Dashboard = () => {
             <h1 className="text-3xl font-bold">Dashboard</h1>
             <p className="text-muted-foreground">Welcome back, {user?.name}</p>
           </div>
-          <div className="flex space-x-3 mt-4 md:mt-0">
-            <Button variant="outline" size="sm" className="flex items-center">
-              <Bell className="h-4 w-4 mr-2" />
-              Alerts
-            </Button>
-            <Button size="sm" className="flex items-center">
-              <Plus className="h-4 w-4 mr-2" />
-              New Prediction
-            </Button>
-          </div>
         </div>
 
         <Tabs defaultValue="overview" onValueChange={setActiveTab} className="space-y-4">
