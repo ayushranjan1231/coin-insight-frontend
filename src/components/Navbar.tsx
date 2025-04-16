@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { 
@@ -16,6 +17,7 @@ import {
 } from 'lucide-react';
 
 export const Navbar = () => {
+  const router = useRouter();
   const { state, logout } = useAuth();
   const { isAuthenticated, user } = state;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,12 +26,17 @@ export const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
+
   return (
     <header className="bg-card fixed w-full z-50 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 rounded-full bg-gradient-to-r from-crypto-teal to-crypto-blue flex items-center justify-center">
                 <LineChart className="h-5 w-5 text-white" />
               </div>
@@ -39,20 +46,20 @@ export const Navbar = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-4">
-            <Link to="/" className="flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors">
+            <Link href="/" className={`flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors ${router.pathname === '/' ? 'text-foreground bg-muted/30' : ''}`}>
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <Link to="/about" className="flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors">
+            <Link href="/about" className={`flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors ${router.pathname === '/about' ? 'text-foreground bg-muted/30' : ''}`}>
               <Info className="h-4 w-4" />
               <span>About</span>
             </Link>
-            <Link to="/contact" className="flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors">
+            <Link href="/contact" className={`flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors ${router.pathname === '/contact' ? 'text-foreground bg-muted/30' : ''}`}>
               <Mail className="h-4 w-4" />
               <span>Contact</span>
             </Link>
             {isAuthenticated && (
-              <Link to="/dashboard" className="flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors">
+              <Link href="/dashboard" className={`flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors ${router.pathname === '/dashboard' ? 'text-foreground bg-muted/30' : ''}`}>
                 <LineChart className="h-4 w-4" />
                 <span>Dashboard</span>
               </Link>
@@ -69,7 +76,7 @@ export const Navbar = () => {
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  onClick={logout}
+                  onClick={handleLogout}
                   className="flex items-center space-x-1"
                 >
                   <LogOut className="h-4 w-4 mr-1" />
@@ -78,13 +85,13 @@ export const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/login">
+                <Link href="/login">
                   <Button variant="outline" size="sm" className="flex items-center space-x-1">
                     <LogIn className="h-4 w-4 mr-1" />
                     Login
                   </Button>
                 </Link>
-                <Link to="/register">
+                <Link href="/register">
                   <Button size="sm" className="flex items-center space-x-1">
                     <User className="h-4 w-4 mr-1" />
                     Register
@@ -114,20 +121,20 @@ export const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-card border-t border-border/20">
-            <Link to="/" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
+            <Link href="/" className={`flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40 ${router.pathname === '/' ? 'text-foreground bg-muted/30' : ''}`} onClick={toggleMenu}>
               <Home className="h-5 w-5" />
               <span>Home</span>
             </Link>
-            <Link to="/about" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
+            <Link href="/about" className={`flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40 ${router.pathname === '/about' ? 'text-foreground bg-muted/30' : ''}`} onClick={toggleMenu}>
               <Info className="h-5 w-5" />
               <span>About</span>
             </Link>
-            <Link to="/contact" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
+            <Link href="/contact" className={`flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40 ${router.pathname === '/contact' ? 'text-foreground bg-muted/30' : ''}`} onClick={toggleMenu}>
               <Mail className="h-5 w-5" />
               <span>Contact</span>
             </Link>
             {isAuthenticated && (
-              <Link to="/dashboard" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
+              <Link href="/dashboard" className={`flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40 ${router.pathname === '/dashboard' ? 'text-foreground bg-muted/30' : ''}`} onClick={toggleMenu}>
                 <LineChart className="h-5 w-5" />
                 <span>Dashboard</span>
               </Link>
@@ -135,7 +142,7 @@ export const Navbar = () => {
             {isAuthenticated ? (
               <button
                 onClick={() => {
-                  logout();
+                  handleLogout();
                   toggleMenu();
                 }}
                 className="flex items-center space-x-2 text-foreground/80 hover:text-foreground w-full text-left px-3 py-2 rounded-md hover:bg-muted/40"
@@ -145,11 +152,11 @@ export const Navbar = () => {
               </button>
             ) : (
               <>
-                <Link to="/login" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
+                <Link href="/login" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
                   <LogIn className="h-5 w-5" />
                   <span>Login</span>
                 </Link>
-                <Link to="/register" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
+                <Link href="/register" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
                   <User className="h-5 w-5" />
                   <span>Register</span>
                 </Link>
