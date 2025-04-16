@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { 
@@ -16,18 +16,12 @@ import {
 } from 'lucide-react';
 
 export const Navbar = () => {
-  const location = useLocation();
   const { state, logout } = useAuth();
   const { isAuthenticated, user } = state;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleLogout = () => {
-    logout();
-    // No need to navigate, AuthContext will handle that
   };
 
   return (
@@ -45,20 +39,20 @@ export const Navbar = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-4">
-            <Link to="/" className={`flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors ${location.pathname === '/' ? 'text-foreground bg-muted/30' : ''}`}>
+            <Link to="/" className="flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors">
               <Home className="h-4 w-4" />
               <span>Home</span>
             </Link>
-            <Link to="/about" className={`flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors ${location.pathname === '/about' ? 'text-foreground bg-muted/30' : ''}`}>
+            <Link to="/about" className="flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors">
               <Info className="h-4 w-4" />
               <span>About</span>
             </Link>
-            <Link to="/contact" className={`flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors ${location.pathname === '/contact' ? 'text-foreground bg-muted/30' : ''}`}>
+            <Link to="/contact" className="flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors">
               <Mail className="h-4 w-4" />
               <span>Contact</span>
             </Link>
             {isAuthenticated && (
-              <Link to="/dashboard" className={`flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors ${location.pathname === '/dashboard' ? 'text-foreground bg-muted/30' : ''}`}>
+              <Link to="/dashboard" className="flex items-center space-x-1 text-foreground/80 hover:text-foreground py-2 px-3 rounded-md hover:bg-muted/40 transition-colors">
                 <LineChart className="h-4 w-4" />
                 <span>Dashboard</span>
               </Link>
@@ -75,7 +69,7 @@ export const Navbar = () => {
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  onClick={handleLogout}
+                  onClick={logout}
                   className="flex items-center space-x-1"
                 >
                   <LogOut className="h-4 w-4 mr-1" />
@@ -120,20 +114,20 @@ export const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-card border-t border-border/20">
-            <Link to="/" className={`flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40 ${location.pathname === '/' ? 'text-foreground bg-muted/30' : ''}`} onClick={toggleMenu}>
+            <Link to="/" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
               <Home className="h-5 w-5" />
               <span>Home</span>
             </Link>
-            <Link to="/about" className={`flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40 ${location.pathname === '/about' ? 'text-foreground bg-muted/30' : ''}`} onClick={toggleMenu}>
+            <Link to="/about" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
               <Info className="h-5 w-5" />
               <span>About</span>
             </Link>
-            <Link to="/contact" className={`flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40 ${location.pathname === '/contact' ? 'text-foreground bg-muted/30' : ''}`} onClick={toggleMenu}>
+            <Link to="/contact" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
               <Mail className="h-5 w-5" />
               <span>Contact</span>
             </Link>
             {isAuthenticated && (
-              <Link to="/dashboard" className={`flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40 ${location.pathname === '/dashboard' ? 'text-foreground bg-muted/30' : ''}`} onClick={toggleMenu}>
+              <Link to="/dashboard" className="flex items-center space-x-2 text-foreground/80 hover:text-foreground block px-3 py-2 rounded-md hover:bg-muted/40" onClick={toggleMenu}>
                 <LineChart className="h-5 w-5" />
                 <span>Dashboard</span>
               </Link>
@@ -141,7 +135,7 @@ export const Navbar = () => {
             {isAuthenticated ? (
               <button
                 onClick={() => {
-                  handleLogout();
+                  logout();
                   toggleMenu();
                 }}
                 className="flex items-center space-x-2 text-foreground/80 hover:text-foreground w-full text-left px-3 py-2 rounded-md hover:bg-muted/40"

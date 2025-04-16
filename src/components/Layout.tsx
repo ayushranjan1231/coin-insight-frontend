@@ -5,20 +5,9 @@ import { Toaster } from '@/components/ui/toaster';
 
 interface LayoutProps {
   children: ReactNode;
-  title?: string;
-  description?: string;
 }
 
-const Layout = ({ 
-  children, 
-  title = "CryptoPredict AI - Cryptocurrency Prediction with AI",
-  description = "Leverage advanced machine learning models to forecast cryptocurrency market trends and make data-driven investment decisions."
-}: LayoutProps) => {
-  // Set document title programmatically (since we're not using Next.js Head)
-  if (typeof document !== 'undefined') {
-    document.title = title;
-  }
-  
+const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
