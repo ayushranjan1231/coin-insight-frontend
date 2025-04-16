@@ -1,4 +1,7 @@
 
+// This file is not used in the Vite build
+// The main application entry is now src/App.tsx
+// This file remains only for reference
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

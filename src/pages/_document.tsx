@@ -1,4 +1,6 @@
 
+// This file is not used in the Vite build
+// It's kept for reference in case we switch back to Next.js
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
